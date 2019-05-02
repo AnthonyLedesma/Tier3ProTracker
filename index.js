@@ -88,7 +88,6 @@
         | Function Declaration Block. 
         |--------------------------------------------------------------------------
         *///Check for errors before enabling slack submission
-        var x;
         function areThereFormErrors() {
             if (DOMPurify.sanitize(customerBox.val().trim()) === "") { return "Enter a valid customer number"; }
             if (nameDifferntCheckbox.is(':checked') && DOMPurify.sanitize(nameBox.val().trim()) === "") { return "Must enter caller name or alias"; }
@@ -96,9 +95,7 @@
             if (Other.is(':checked') && DOMPurify.sanitize(commentsBox.val().trim()) === "") { return "Enter comments about the topic."; }
             if (ticketCheckbox.is(':checked') && DOMPurify.sanitize(escalationNumber.val().trim()) === "") { return "Enter ticket number." }
             let elementsCheck = 0;
-            for (x in inputNameProductsCalledAbout) {
- 	            if (inputNameProductsCalledAbout.is(':checked')) { elementsCheck++; }
-        }
+            if (inputNameProductsCalledAbout.is(':checked')) { elementsCheck++; }
             if (elementsCheck === 0) { return "Must select a topic"; }
             return false;
         }
