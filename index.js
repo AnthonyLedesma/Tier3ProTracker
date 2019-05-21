@@ -24,6 +24,7 @@
     //set domains N/A checkbox change checks
 
     // declare the form elements to minimize dom calls.
+    const H2Title = $('#ChangableFormH2');
     // Input Boxes
     const customerBox = $('#customerBox');
     const nameBox = $('#nameBox');
@@ -76,6 +77,10 @@
     | Sanitize the inputs and perform error checking then format values for slack
     |--------------------------------------------------------------------------
     */
+    function setTitles(text) {
+        H2Title.html(text)
+    }
+
     parseButton.click(function () {
         if (areThereFormErrors() === false) {
             processOutput();
@@ -102,14 +107,7 @@
 
         //When errrs occur then areThereFormErrors is passed to handleError.
         function handleError(error) {
-            if (error !== false) {
-                $("#errorPTag").removeAttr("hidden");
-                $("#errorP").html(error);
-                timeoutModule = setTimeout(() => {
-                    $("#errorPTag").attr('hidden', 'hidden');
-                    $("#errorP").html('');
-                }, 3000);
-            }
+            UIkit.notification({message: error, status: 'danger'})
         }
 
         //Parse from inputs and show note template
@@ -169,12 +167,7 @@
 
         let text = `#### Pro Pilot Call Tracker ####\nCaller Name: \`${finalFormValuesToSlack.callerName}\`\nProducts Related To Inquiry: \`${finalFormValuesToSlack.products.toString()}\`\nSituation: \`\`\`${finalFormValuesToSlack.situation}\`\`\`\n\nResolved: \`${finalFormValuesToSlack.resolved ? 'True' : 'False'}\`\nOut of Scope: \`${finalFormValuesToSlack.oos ? 'True' : 'False'}\`\nEscalation Created: \`${finalFormValuesToSlack.escalationCreated ? `True - Ticket ${finalFormValuesToSlack.ticketNumber}` : 'False'}\`\nComments: \`${finalFormValuesToSlack.comments === '' ? 'N/A' : finalFormValuesToSlack.comments}\``;
         $.ajax({ data: 'payload=' + JSON.stringify({ "text": text, "icon_url": slackIconUrl}), dataType: 'json', processData: false, type: 'POST', 'url': slackApiUrl });
-        $("#errorPTag").removeAttr('hidden').removeClass('uk-alert-success').addClass('uk-alert-primary');
-        $("#errorP").html(successSlack);
-        timeoutModule = setTimeout(() => {
-            $("#errorPTag").attr('hidden', 'hidden').removeClass('uk-alert-primary').addClass('uk-alert-danger')
-            $("#errorP").html('');
-        }, 15000);
+        UIkit.notification({message: successSlack, status: 'success'});
     })
 
     /*
@@ -195,20 +188,19 @@
         hiddenCommentsDiv.attr('hidden', 'hidden');
         situationBox.val('');
         document.getElementById("resolvedCheckbox").checked = true;
-
+        
         finalFormValuesToSlack = '';
         SubmitSlack.prop('disabled', true)
         hiddenResultsArea.attr('hidden', 'hidden')
         resultsOutput.val('');
         parseButton.prop('disabled', false);
         clearTimeout(timeoutModule);
-        $("#errorPTag").attr('hidden', 'hidden').removeClass('uk-alert-primary').addClass('uk-alert-danger');
-        $("#errorP").html('');
 
         //feedback elements
         if (feedbackAccordion.hasClass('uk-open')) {
             UIkit.accordion('#jsaccordion').toggle(0, true);
         }
+        UIkit.notification.closeAll()
         proFeedbackSubmit.removeAttr('disabled');
         experiencePositive.prop('checked', true);
         experienceNegative.prop('checked', false);
@@ -312,12 +304,8 @@
 
     function handleFetchErrors(response) {
         if (!response.ok) {
-            $("#errorPTag").removeAttr("hidden");
-            $("#errorP").html(response.statusText);
-            timeoutModule = setTimeout(() => {
-                $("#errorPTag").attr('hidden', 'hidden');
-                $("#errorP").html('');
-            }, 12000);
+            UIkit.notification({message: "Feedback API Response is not OK", status: 'danger'});
+            console.log(JSON.stringify(response))
         }
         return response;
     }

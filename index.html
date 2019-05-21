@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tier 3 Pro Tracker</title>
+    <link rel="stylesheet" type="text/css" href="./trackerStyle.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.5/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.5/js/uikit-icons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.min.js"></script>
@@ -14,51 +15,51 @@
 <body>
     <style>
         .white-check {
-            background-color: white !important;
+            background-color: #fff !important
         }
 
         .tg-list {
             text-align: center;
             display: flex;
-            align-items: center;
+            align-items: center
         }
 
         .tg-list-item {
-            margin: 0 2em;
+            margin: 0 2em
         }
 
         .tgl {
-            display: none;
+            display: none
         }
 
         .tgl,
-        .tgl:after,
-        .tgl:before,
         .tgl *,
-        .tgl *:after,
-        .tgl *:before,
-        .tgl+.tgl-btn {
-            box-sizing: border-box;
+        .tgl :after,
+        .tgl :before,
+        .tgl+.tgl-btn,
+        .tgl:after,
+        .tgl:before {
+            box-sizing: border-box
         }
 
+        .tgl ::-moz-selection,
+        .tgl :after::-moz-selection,
+        .tgl :before::-moz-selection,
+        .tgl+.tgl-btn::-moz-selection,
         .tgl::-moz-selection,
         .tgl:after::-moz-selection,
-        .tgl:before::-moz-selection,
-        .tgl *::-moz-selection,
-        .tgl *:after::-moz-selection,
-        .tgl *:before::-moz-selection,
-        .tgl+.tgl-btn::-moz-selection {
-            background: none;
+        .tgl:before::-moz-selection {
+            background: 0 0
         }
 
+        .tgl ::selection,
+        .tgl :after::selection,
+        .tgl :before::selection,
+        .tgl+.tgl-btn::selection,
         .tgl::selection,
         .tgl:after::selection,
-        .tgl:before::selection,
-        .tgl *::selection,
-        .tgl *:after::selection,
-        .tgl *:before::selection,
-        .tgl+.tgl-btn::selection {
-            background: none;
+        .tgl:before::selection {
+            background: 0 0
         }
 
         .tgl+.tgl-btn {
@@ -71,7 +72,7 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
-            user-select: none;
+            user-select: none
         }
 
         .tgl+.tgl-btn:after,
@@ -80,19 +81,19 @@
             display: block;
             content: "";
             width: 50%;
-            height: 100%;
+            height: 100%
         }
 
         .tgl+.tgl-btn:after {
-            left: 0;
+            left: 0
         }
 
         .tgl+.tgl-btn:before {
-            display: none;
+            display: none
         }
 
         .tgl:checked+.tgl-btn:after {
-            left: 50%;
+            left: 50%
         }
 
         .tgl-flip+.tgl-btn {
@@ -100,7 +101,7 @@
             transition: all .2s ease;
             font-family: sans-serif;
             -webkit-perspective: 100px;
-            perspective: 100px;
+            perspective: 100px
         }
 
         .tgl-flip+.tgl-btn:after,
@@ -111,48 +112,48 @@
             text-align: center;
             position: absolute;
             line-height: 2em;
-            font-weight: bold;
+            font-weight: 700;
             color: #fff;
             position: absolute;
             top: 0;
             left: 0;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 4px;
+            border-radius: 4px
         }
 
         .tgl-flip+.tgl-btn:after {
             content: attr(data-tg-on);
-            background: #02C66F;
+            background: #02c66f;
             -webkit-transform: rotateY(-180deg);
-            transform: rotateY(-180deg);
+            transform: rotateY(-180deg)
         }
 
         .tgl-flip+.tgl-btn:before {
-            background: #FF3A19;
-            content: attr(data-tg-off);
+            background: #ff3a19;
+            content: attr(data-tg-off)
         }
 
         .tgl-flip+.tgl-btn:active:before {
             -webkit-transform: rotateY(-20deg);
-            transform: rotateY(-20deg);
+            transform: rotateY(-20deg)
         }
 
         .tgl-flip:checked+.tgl-btn:before {
             -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
+            transform: rotateY(180deg)
         }
 
         .tgl-flip:checked+.tgl-btn:after {
             -webkit-transform: rotateY(0);
             transform: rotateY(0);
             left: 0;
-            background: #7FC6A6;
+            background: #7fc6a6
         }
 
         .tgl-flip:checked+.tgl-btn:active:after {
             -webkit-transform: rotateY(20deg);
-            transform: rotateY(20deg);
+            transform: rotateY(20deg)
         }
     </style>
 
@@ -161,126 +162,155 @@
     <!-- // Beginning of confluence content -->
 
     <div class="uk-scope">
-        <div class="uk-grid-collapse uk-child-width-expand@m" uk-grid>
-            <!-- Grid Section with standard padding added, main input content -->
-            <div>
-                <div class="uk-container uk-flex uk-padding-remove uk-padding-remove-left uk-margin-remove-left">
-                    <h2 class="uk-heading-bullet">Tier 3 Pro Tracker</h2>
-                    <div class="uk-alert-danger uk-text-center uk-text-capitalize uk-margin-remove-vertical uk-margin-left"
-                        id="errorPTag" hidden="hidden" uk-alert>
-                        <p class="uk-text-bold uk-text-capitalize uk-text-large" id="errorP"> Error text goes here</p>
-                    </div>
-                </div>
-                <!-- Form with labels on top of controls -->
-                <form class="uk-form-stacked">
-                    <!-- form section-->
+        <div>
+            <h2 id="ChangableFormH2" class="uk-heading-bullet">Tier 3 Pro Tracker</h2>
+            <ul class="uk-margin-right uk-position-right uk-subnav uk-subnav-pill" uk-switcher="connect: .the-forms">
+                <li><a href="#"
+                        onclick="document.getElementById('ChangableFormH2').innerHTML = 'Tier 3 Pro Tracker';">PRO
+                        Tracker</a></li>
+                <li><a href="#"
+                        onclick="document.getElementById('ChangableFormH2').innerHTML = 'High Value Customer Tracker';">HVC
+                        Tracker</a></li>
+                <li><a href="#"
+                        onclick="document.getElementById('ChangableFormH2').innerHTML = 'Reseller Owner Tracker';">RSO
+                        Tracker</a></li>
+            </ul>
+        </div>
+        <ul class="uk-switcher uk-margin the-forms">
+            <li id="pro-li-switcher">
+                <!-- Contains the pro form. -->
 
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="customerBox">Enter The Customer Number Here.</label>
-                        <div class="uk-form-controls uk-flex">
-                            <input class="uk-input" type="text" id="customerBox"
-                                placeholder="Enter The Customer Number Here"></input>
+                <!-- Grid Section with standard padding added, main input content -->
+                <div class="uk-padding-remove uk-padding-remove-left uk-margin-remove-left">
+                    <div class="uk-grid-collapse uk-child-width-expand@m" uk-grid>
+
+                        <div class="uk-alert-danger uk-text-center uk-text-capitalize uk-margin-remove-vertical uk-margin-left"
+                            id="errorPTag" hidden="hidden" uk-alert>
+                            <p class="uk-text-bold uk-text-capitalize uk-text-large" id="errorP"> Error text goes
+                                here</p>
                         </div>
                     </div>
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="nameBox">Enter The Caller Name Here.</label>
-                        <div class="uk-form-controls uk-flex">
-                            <input class="uk-input" type="text" id="nameBox" placeholder="Same As Account Name."
-                                disabled=true></input>
-                            <div class="uk-width-1-4@s uk-margin-left">
-                                <label><input class="uk-checkbox " type="checkbox" id="nameNA" name="checkboxNA"> Name
-                                    Different Then Account Name?</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="situationBox">Describe the situation.</label>
-                        <div class="uk-form-controls uk-flex">
-                            <input class="uk-input" type="text" id="situationBox"
-                                placeholder="Describe the situation."></input>
-                        </div>
-                    </div>
+                    <!-- Form with labels on top of controls -->
+                    <form class="uk-form-stacked">
+                        <!-- form section-->
 
-                    <div class="uk-margin uk-margin-remove-bottom" uk-grid>
-                        <div class="uk-width-1-2 uk-margin-remove-top">
-                            <div class="matched-class">
-                                <h4>Call Topic(s)</h4>
-                                <ul class="uk-list uk-list-large uk-list-default">
-                                    <div class="uk-alert-success" uk-alert>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Domains"
-                                                    name="productsCalledAbout">
-                                                Domains </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Hosting"
-                                                    name="productsCalledAbout">
-                                                Hosting </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Email"
-                                                    name="productsCalledAbout">
-                                                Email </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Websites"
-                                                    name="productsCalledAbout">
-                                                Websites </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Security"
-                                                    name="productsCalledAbout">
-                                                Security </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="BusinessTools"
-                                                    name="productsCalledAbout">
-                                                Business Tools </label></li>
-                                        <li><label><input class="uk-checkbox" type="checkbox" id="Other"
-                                                    name="productsCalledAbout">
-                                                Other (Leave a comment below) </label></li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-margin-remove-top uk-width-1-2" uk-height-match=".matched-class">
-                            <h4>Call Resolution</h4>
-                            <div class="uk-alert-warning" uk-alert>
-                                <div class="uk-flex">
-                                    <h4>Issue Was Resolved?</h4>
-                                    <li class="tg-list-item uk-margin-remove-right">
-                                        <input class="tgl tgl-flip" name="resolutionCheckboxes" id="resolvedCheckbox"
-                                            type="checkbox" checked>
-                                        <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                            data-tg-off="Nope" data-tg-on="Yes" for="resolvedCheckbox"></label>
-                                    </li>
-                                </div>
-                                <div class="uk-flex">
-                                    <h4>Inquiry Out Of Scope?</h4>
-                                    <li class="tg-list-item uk-margin-remove-right">
-                                        <input class="tgl tgl-flip" name="resolutionCheckboxes" id="scopeCheckbox"
-                                            type="checkbox" />
-                                        <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                            data-tg-off="Nope" data-tg-on="Yes" for="scopeCheckbox"></label>
-                                    </li>
-                                </div>
-                                <div class="uk-flex">
-                                    <h4 class="uk-margin-remove-bottom">Escalation Created For Caller?</h4>
-                                    <li class="tg-list-item uk-margin-remove-right">
-                                        <input class="tgl tgl-flip" name="resolutionCheckboxes" id="ticketCheckbox"
-                                            type="checkbox" />
-                                        <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                            data-tg-off="Nope" data-tg-on="Yes" for="ticketCheckbox"></label>
-                                    </li>
-                                    <input class="uk-input uk-width-1-4 uk-input uk-margin-left uk-padding-bottom"
-                                        type="text" id="escalationNumber" placeholder="Ticket #" disabled="true"
-                                        hidden="true"></input>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div id="hiddenComments" hidden="true" uk-margin>
                         <div class="uk-margin">
-                            <label class="uk-form-label" for="commentsBox">Enter Comments On Call Topic(s).</label>
+                            <label class="uk-form-label" for="customerBox">Enter The Customer Number Here.</label>
                             <div class="uk-form-controls uk-flex">
-                                <input class="uk-input" type="text" id="commentsBox" disabled="true"
-                                    placeholder="Comments Here."></input>
+                                <input class="uk-input" type="text" id="customerBox"
+                                    placeholder="Enter The Customer Number Here"></input>
                             </div>
                         </div>
-                    </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="nameBox">Enter The Caller Name Here.</label>
+                            <div class="uk-form-controls uk-flex">
+                                <input class="uk-input" type="text" id="nameBox" placeholder="Same As Account Name."
+                                    disabled=true></input>
+                                <div class="uk-width-1-4@s uk-margin-left">
+                                    <label><input class="uk-checkbox " type="checkbox" id="nameNA" name="checkboxNA">
+                                        Name
+                                        Different Then Account Name?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="situationBox">Describe the situation.</label>
+                            <div class="uk-form-controls uk-flex">
+                                <input class="uk-input" type="text" id="situationBox"
+                                    placeholder="Describe the situation."></input>
+                            </div>
+                        </div>
 
+                        <div class="uk-margin uk-margin-remove-bottom" uk-grid>
+                            <div class="uk-width-1-2 uk-margin-remove-top">
+                                <div class="matched-class">
+                                    <h4>Call Topic(s)</h4>
+                                    <ul class="uk-list uk-list-large uk-list-default">
+                                        <div class="uk-alert-success" uk-alert>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Domains"
+                                                        name="productsCalledAbout">
+                                                    Domains </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Hosting"
+                                                        name="productsCalledAbout">
+                                                    Hosting </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Email"
+                                                        name="productsCalledAbout">
+                                                    Email </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Websites"
+                                                        name="productsCalledAbout">
+                                                    Websites </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Security"
+                                                        name="productsCalledAbout">
+                                                    Security </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="BusinessTools"
+                                                        name="productsCalledAbout">
+                                                    Business Tools </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Other"
+                                                        name="productsCalledAbout">
+                                                    Other (Leave a comment below) </label></li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="uk-margin-remove-top uk-width-1-2" uk-height-match=".matched-class">
+                                <h4>Call Resolution</h4>
+                                <div class="uk-alert-warning" uk-alert>
+                                    <div class="uk-flex">
+                                        <h4>Issue Was Resolved?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                id="resolvedCheckbox" type="checkbox" checked>
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="resolvedCheckbox"></label>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="uk-flex">
+                                        <h4>Inquiry Out Of Scope?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes" id="scopeCheckbox"
+                                                type="checkbox" />
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="scopeCheckbox"></label>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="uk-flex">
+                                        <h4 class="uk-margin-remove-bottom">Escalation Created For Caller?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes" id="ticketCheckbox"
+                                                type="checkbox" />
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="ticketCheckbox"></label>
+                                        </a>
+
+
+                                        <input class="uk-input uk-width-1-4 uk-input uk-margin-left uk-padding-bottom"
+                                            type="text" id="escalationNumber" placeholder="Ticket #" disabled="true"
+                                            hidden="true"></input>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="hiddenComments" hidden="true" uk-margin>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="commentsBox">Enter Comments On Call Topic(s).</label>
+                                <div class="uk-form-controls uk-flex">
+                                    <input class="uk-input" type="text" id="commentsBox" disabled="true"
+                                        placeholder="Comments Here."></input>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 </form>
                 <div class="uk-margin uk-margin-bottom" uk-margin>
                     <button id="parseButton" class="uk-button uk-button-primary">Parse</button>
@@ -290,103 +320,124 @@
                     <button id="buttonProvideFeedback" class="uk-button uk-button-secondary">Provide Pro
                         Feedback</button>
                 </div>
-            </div>
-            <!-- Parse and reset buttons need to be outside of form -->
-        </div>
 
-        <div id="hiddenResultsArea" hidden='hidden'
-            class="uk-card uk-card-default uk-card-body uk-background-muted uk-margin-bottom">
-            <h3 class="uk-card-title">Results:</h3>
-            <div class="uk-margin">
-                <textarea id="resultsOutput" class="uk-textarea uk-margin-bottom" rows="11"></textarea>
-            </div>
-        </div>
-
-        <ul uk-accordion id="jsaccordion">
-            <li id="feedbackAccordion">
-                <a class="uk-accordion-title uk-text-center uk-text-lead uk-alert-primary" href="#">Provide Pro
-                    Feedback</a>
-                <div class="uk-accordion-content">
-                    <div class="uk-card uk-card-default uk-card-body uk-background-muted">
-                        <div class="uk-text-center" uk-grid>
-                            <div class="uk-width-auto@m">
-                                <h3 class="uk-card-title">Feedback</h3>
-                            </div>
-
-                            <div class="uk-width-expand@m">
-                                <div class="uk-alert-danger" uk-alert>
-                                    <span>NO PERSONAL INFORMATION. NO DOMAINS, CUSTOMER #'S OR NAMES IN THIS
-                                        FEEDBACK.</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                            <label><input class="uk-radio" type="radio" name="experienceRadios" id="experiencePositive"
-                                    checked> Positive</label>
-                            <label><input class="uk-radio" type="radio" name="experienceRadios" id="experienceNegative">
-                                Negative</label>
-                        </div>
-
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="feedbackComments">Pro's Comments</label>
-                            <div class="uk-form-controls uk-flex">
-                                <textarea class="uk-textarea" type="text" id="feedbackComments"
-                                    placeholder="Comments"></textarea>
-                            </div>
-                        </div>
+                <!-- Parse and reset buttons need to be outside of form -->
 
 
-                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                            <label><input name="tagChecks" data-attr="bugs" class="uk-checkbox" id="bugs"
-                                    type="checkbox"> bugs</label>
-                            <label><input name="tagChecks" data-attr="ui/ux" class="uk-checkbox" id="uiux"
-                                    type="checkbox"> ui/ux</label>
-                            <label><input name="tagChecks" data-attr="rewards" class="uk-checkbox" id="rewards"
-                                    type="checkbox">
-                                rewards</label>
-                            <label><input name="tagChecks" data-attr="support" class="uk-checkbox" id="support"
-                                    type="checkbox">
-                                support</label>
-                            <label><input name="tagChecks" data-attr="usefulness" class="uk-checkbox" id="usefulness"
-                                    type="checkbox">
-                                usefulness</label>
-                            <label><input name="tagChecks" data-attr="ease of use" class="uk-checkbox" id="easeOfUse"
-                                    type="checkbox"> ease of
-                                use</label>
-                            <label><input name="tagChecks" data-attr="knowledge base" class="uk-checkbox"
-                                    id="knowledgeBase" type="checkbox">
-                                knowledge base</label>
-                            <label><input name="tagChecks" data-attr="white-lebeling" class="uk-checkbox"
-                                    id="whiteLabeling" type="checkbox">
-                                white-labeling</label>
-                            <label><input name="tagChecks" data-attr="business tools" class="uk-checkbox"
-                                    id="businessToolsTag" type="checkbox">
-                                business tools</label>
-                            <label><input name="tagChecks" data-attr="suggestions" class="uk-checkbox"
-                                    id="suggestionsTag" type="checkbox">
-                                suggestions</label>
-                        </div>
-                        <button id="proFeedbackSubmit" class="uk-button uk-button-primary">Submit Feedback</button>
+                <div id="hiddenResultsArea" hidden='hidden'
+                    class="uk-card uk-card-default uk-card-body uk-background-muted uk-margin-bottom">
+                    <h3 class="uk-card-title">Results:</h3>
+                    <div class="uk-margin">
+                        <textarea id="resultsOutput" class="uk-textarea uk-margin-bottom" rows="11"></textarea>
                     </div>
                 </div>
+
+                <ul uk-accordion id="jsaccordion">
+                    <li id="feedbackAccordion">
+                        <a class="uk-accordion-title uk-text-center uk-text-lead uk-alert-primary" href="#">Provide Pro
+                            Feedback</a>
+                        <div class="uk-accordion-content">
+                            <div class="uk-card uk-card-default uk-card-body uk-background-muted">
+                                <div class="uk-text-center" uk-grid>
+                                    <div class="uk-width-auto@m">
+                                        <h3 class="uk-card-title">Feedback</h3>
+                                    </div>
+
+                                    <div class="uk-width-expand@m">
+                                        <div class="uk-alert-danger" uk-alert>
+                                            <span>NO PERSONAL INFORMATION. NO DOMAINS, CUSTOMER #'S OR NAMES IN THIS
+                                                FEEDBACK.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                    <label><input class="uk-radio" type="radio" name="experienceRadios"
+                                            id="experiencePositive" checked> Positive</label>
+                                    <label><input class="uk-radio" type="radio" name="experienceRadios"
+                                            id="experienceNegative">
+                                        Negative</label>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="feedbackComments">Pro's Comments</label>
+                                    <div class="uk-form-controls uk-flex">
+                                        <textarea class="uk-textarea" type="text" id="feedbackComments"
+                                            placeholder="Comments"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                    <label><input name="tagChecks" data-attr="bugs" class="uk-checkbox" id="bugs"
+                                            type="checkbox">
+                                        bugs</label>
+                                    <label><input name="tagChecks" data-attr="ui/ux" class="uk-checkbox" id="uiux"
+                                            type="checkbox">
+                                        ui/ux</label>
+                                    <label><input name="tagChecks" data-attr="rewards" class="uk-checkbox" id="rewards"
+                                            type="checkbox">
+                                        rewards</label>
+                                    <label><input name="tagChecks" data-attr="support" class="uk-checkbox" id="support"
+                                            type="checkbox">
+                                        support</label>
+                                    <label><input name="tagChecks" data-attr="usefulness" class="uk-checkbox"
+                                            id="usefulness" type="checkbox">
+                                        usefulness</label>
+                                    <label><input name="tagChecks" data-attr="ease of use" class="uk-checkbox"
+                                            id="easeOfUse" type="checkbox"> ease of
+                                        use</label>
+                                    <label><input name="tagChecks" data-attr="knowledge base" class="uk-checkbox"
+                                            id="knowledgeBase" type="checkbox">
+                                        knowledge base</label>
+                                    <label><input name="tagChecks" data-attr="white-lebeling" class="uk-checkbox"
+                                            id="whiteLabeling" type="checkbox">
+                                        white-labeling</label>
+                                    <label><input name="tagChecks" data-attr="business tools" class="uk-checkbox"
+                                            id="businessToolsTag" type="checkbox">
+                                        business tools</label>
+                                    <label><input name="tagChecks" data-attr="suggestions" class="uk-checkbox"
+                                            id="suggestionsTag" type="checkbox">
+                                        suggestions</label>
+                                </div>
+                                <button id="proFeedbackSubmit" class="uk-button uk-button-primary">Submit
+                                    Feedback</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <div class="uk-card uk-card-default uk-card-body uk-background-muted uk-text-center">
+                    <h3 class="uk-card-title">Instructions:</h3>
+                    <ul class="uk-list uk-list-divider uk-text-capitalize uk-text-bold uk-margin-top">
+                        <li>1. Enter Customer Number And The Caller Name</li>
+                        <li>2. Explain The Situation And Check Related Topics</li>
+                        <li>3. Specify Resolution Information</li>
+                        <li>4. Click Parse To Generate Notes And Submit To Slack.</li>
+                        <li>5. Submit Pro Feedback If Applicable</li>
+                        <li>All Done!</li>
+                    </ul>
+                </div>
+                <!-- ends container for pro form. -->
+            </li>
+            <li id="hvc-li-switcher">
+                <!-- Contains the hvc form. -->
+
+
+
+
+                <!-- ends container for hvc form. -->
+            </li>
+            <li id="rso-li-switcher">
+                <!-- Contains the rso form. -->
+                <!-- ends container for rso form. -->
             </li>
         </ul>
 
 
-        <div class="uk-card uk-card-default uk-card-body uk-background-muted uk-text-center">
-            <h3 class="uk-card-title">Instructions:</h3>
-            <ul class="uk-list uk-list-divider uk-text-capitalize uk-text-bold uk-margin-top">
-                <li>1. Enter Customer Number And The Caller Name</li>
-                <li>2. Explain The Situation And Check Related Topics</li>
-                <li>3. Specify Resolution Information</li>
-                <li>4. Click Parse To Generate Notes And Submit To Slack.</li>
-                <li>5. Submit Pro Feedback If Applicable</li>
-                <li>All Done!</li>
-            </ul>
-        </div>
     </div>
-        <!-- // End of confluence content. -->
+    <!-- // End of confluence content. -->
 
 
     <script type="text/javascript" src="./index.js"></script>
