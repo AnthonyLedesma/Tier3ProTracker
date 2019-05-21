@@ -6,14 +6,14 @@
 |
 | Used By Tier 3 Agents To Capture Call Data.
 */
-
-
 ; (PACT3 = ($, DOMPurify, UIkit) => {
     // Whole-script strict mode syntax
     'use strict';
+
+    //setup uikit container
+    UIkit.container = '.uk-scope';
+
     // API URLS HERE. Do Not Commit.
-
-
     // const slackApiUrl = "EXAMPLEAPIHERE";
     // const feedbackApiUrl = "EXAMPLEAPIHERE";
 
@@ -47,7 +47,7 @@
 
     // Resolutions
     const resolvedCheckbox = $('#resolvedCheckbox');
-    const scopeCheckbox = $('#scopeCheckbox');
+    // const scopeCheckbox = $('#scopeCheckbox');
     const ticketCheckbox = $('#ticketCheckbox');
     const inputNameResolutionCheckboxes = $("input[name='resolutionCheckboxes']");
 
@@ -60,7 +60,6 @@
     const resultsOutput = $('#resultsOutput');
     const hiddenResultsArea = $('#hiddenResultsArea');
     const slackIconUrl = "https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2019-03-27/591799331895_48.png";
-    let timeoutModule;
 
     // Pro Feeback Elements
     const experiencePositive = $('#experiencePositive');
@@ -107,7 +106,7 @@
 
         //When errrs occur then areThereFormErrors is passed to handleError.
         function handleError(error) {
-            UIkit.notification({message: error, status: 'danger'})
+            UIkit.notification({ message: error, status: 'danger', pos: 'top-center' })
         }
 
         //Parse from inputs and show note template
@@ -166,8 +165,8 @@
         parseButton.prop('disabled', true);
 
         let text = `#### Pro Pilot Call Tracker ####\nCaller Name: \`${finalFormValuesToSlack.callerName}\`\nProducts Related To Inquiry: \`${finalFormValuesToSlack.products.toString()}\`\nSituation: \`\`\`${finalFormValuesToSlack.situation}\`\`\`\n\nResolved: \`${finalFormValuesToSlack.resolved ? 'True' : 'False'}\`\nOut of Scope: \`${finalFormValuesToSlack.oos ? 'True' : 'False'}\`\nEscalation Created: \`${finalFormValuesToSlack.escalationCreated ? `True - Ticket ${finalFormValuesToSlack.ticketNumber}` : 'False'}\`\nComments: \`${finalFormValuesToSlack.comments === '' ? 'N/A' : finalFormValuesToSlack.comments}\``;
-        $.ajax({ data: 'payload=' + JSON.stringify({ "text": text, "icon_url": slackIconUrl}), dataType: 'json', processData: false, type: 'POST', 'url': slackApiUrl });
-        UIkit.notification({message: successSlack, status: 'success'});
+        $.ajax({ data: 'payload=' + JSON.stringify({ "text": text, "icon_url": slackIconUrl }), dataType: 'json', processData: false, type: 'POST', 'url': slackApiUrl });
+        UIkit.notification({ message: successSlack, status: 'success' });
     })
 
     /*
@@ -187,14 +186,13 @@
         escalationNumber.prop('disabled', true).val('').attr('hidden', 'hidden');
         hiddenCommentsDiv.attr('hidden', 'hidden');
         situationBox.val('');
-        document.getElementById("resolvedCheckbox").checked = true;
-        
+        resolvedCheckbox.checked = true;
+
         finalFormValuesToSlack = '';
         SubmitSlack.prop('disabled', true)
         hiddenResultsArea.attr('hidden', 'hidden')
         resultsOutput.val('');
         parseButton.prop('disabled', false);
-        clearTimeout(timeoutModule);
 
         //feedback elements
         if (feedbackAccordion.hasClass('uk-open')) {
@@ -285,8 +283,9 @@
         function sendToFeedbackApi(feedback) {
             //console.log({ text: feedback.text, tags: feedback.tags, positive: feedback.positive })
             //console.log(JSON.stringify({ text: feedback.text, tags: feedback.tags, positive: feedbackFormValues.positive }))
-            let parsedData = JSON.stringify({ text: feedback.text, tags: feedback.tags, positive: feedbackFormValues.positive })
+            let parsedData = JSON.stringify({ text: feedback.text, tags: feedback.tags, isPositive: feedbackFormValues.positive })
             fetch(feedbackApiUrl, {
+                credentials: 'include',
                 method: 'POST',
                 mode: 'cors',
                 body: parsedData,
@@ -304,8 +303,10 @@
 
     function handleFetchErrors(response) {
         if (!response.ok) {
-            UIkit.notification({message: "Feedback API Response is not OK", status: 'danger'});
+            UIkit.notification({ message: "Feedback API Response is not OK", status: 'danger' });
             console.log(JSON.stringify(response))
+        } else {
+            UIkit.notification({ message: "Feedback is submitted!", status: 'success' });
         }
         return response;
     }

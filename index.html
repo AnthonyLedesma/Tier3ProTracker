@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <title>Tier 3 Pro Tracker</title>
     <link rel="stylesheet" type="text/css" href="./trackerStyle.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.5/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.5/js/uikit-icons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./main.js"></script>
 </head>
 
 <body>
@@ -162,9 +161,10 @@
     <!-- // Beginning of confluence content -->
 
     <div class="uk-scope">
-        <div>
-            <h2 id="ChangableFormH2" class="uk-heading-bullet">Tier 3 Pro Tracker</h2>
-            <ul class="uk-margin-right uk-position-right uk-subnav uk-subnav-pill" uk-switcher="connect: .the-forms">
+        <div class="uk-flex-between" uk-grid>
+            <h2 id="ChangableFormH2" class="uk-heading-bullet uk-width-auto">Tier 3 Pro Tracker</h2>
+            <ul class="uk-margin-remove-left uk-padding-remove-left uk-margin-top uk-width-auto uk-subnav uk-subnav-pill"
+                uk-switcher="connect: .the-forms">
                 <li><a href="#"
                         onclick="document.getElementById('ChangableFormH2').innerHTML = 'Tier 3 Pro Tracker';">PRO
                         Tracker</a></li>
@@ -423,14 +423,38 @@
             </li>
             <li id="hvc-li-switcher">
                 <!-- Contains the hvc form. -->
+                <h3>Form for HVCs</h3>
 
 
-
-
+                <div class="uk-card uk-card-default uk-card-body uk-background-muted uk-text-center">
+                    <h3 class="uk-card-title">Instructions:</h3>
+                    <ul class="uk-list uk-list-divider uk-text-capitalize uk-text-bold uk-margin-top">
+                        <li>1. Enter Customer Number And The Caller Name</li>
+                        <li>2. Explain The Situation And Check Related Topics</li>
+                        <li>3. Specify Resolution Information</li>
+                        <li>4. Click Parse To Generate Notes And Submit To Slack.</li>
+                        <li>5. Submit Pro Feedback If Applicable</li>
+                        <li>All Done!</li>
+                    </ul>
+                </div>
                 <!-- ends container for hvc form. -->
             </li>
             <li id="rso-li-switcher">
                 <!-- Contains the rso form. -->
+                <h3>Form for Reseller Owners</h3>
+
+
+                <div class="uk-card uk-card-default uk-card-body uk-background-muted uk-text-center">
+                    <h3 class="uk-card-title">Instructions:</h3>
+                    <ul class="uk-list uk-list-divider uk-text-capitalize uk-text-bold uk-margin-top">
+                        <li>1. Enter Customer Number And The Caller Name</li>
+                        <li>2. Explain The Situation And Check Related Topics</li>
+                        <li>3. Specify Resolution Information</li>
+                        <li>4. Click Parse To Generate Notes And Submit To Slack.</li>
+                        <li>5. Submit Pro Feedback If Applicable</li>
+                        <li>All Done!</li>
+                    </ul>
+                </div>
                 <!-- ends container for rso form. -->
             </li>
         </ul>
@@ -441,6 +465,7 @@
 
 
     <script type="text/javascript" src="./index.js"></script>
+    <div class="uk-notification uk-notification-top-right" style="display: none;"></div>
 </body>
 
 </html>
