@@ -195,28 +195,28 @@
                         <!-- form section-->
 
                         <div class="uk-margin">
-                            <label class="uk-form-label" for="customerBox">Enter The Customer Number Here.</label>
+                            <label class="uk-form-label" for="PROCustomerBox">Enter The Customer Number Here.</label>
                             <div class="uk-form-controls uk-flex">
-                                <input class="uk-input" type="text" id="customerBox"
+                                <input class="uk-input" type="text" id="PROCustomerBox"
                                     placeholder="Enter The Customer Number Here"></input>
                             </div>
                         </div>
                         <div class="uk-margin">
-                            <label class="uk-form-label" for="nameBox">Enter The Caller Name Here.</label>
+                            <label class="uk-form-label" for="PRONameBox">Enter The Caller Name Here.</label>
                             <div class="uk-form-controls uk-flex">
-                                <input class="uk-input" type="text" id="nameBox" placeholder="Same As Account Name."
+                                <input class="uk-input" type="text" id="PRONameBox" placeholder="Same As Account Name."
                                     disabled=true></input>
                                 <div class="uk-width-1-4@s uk-margin-left">
-                                    <label><input class="uk-checkbox " type="checkbox" id="nameNA" name="checkboxNA">
+                                    <label><input class="uk-checkbox " type="checkbox" id="PRONameNA" name="checkboxNA">
                                         Name
                                         Different Then Account Name?</label>
                                 </div>
                             </div>
                         </div>
                         <div class="uk-margin">
-                            <label class="uk-form-label" for="situationBox">Describe the situation.</label>
+                            <label class="uk-form-label" for="PROSituationBox">Describe the situation.</label>
                             <div class="uk-form-controls uk-flex">
-                                <input class="uk-input" type="text" id="situationBox"
+                                <input class="uk-input" type="text" id="PROSituationBox"
                                     placeholder="Describe the situation."></input>
                             </div>
                         </div>
@@ -227,25 +227,25 @@
                                     <h4>Call Topic(s)</h4>
                                     <ul class="uk-list uk-list-large uk-list-default">
                                         <div class="uk-alert-success" uk-alert>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Domains"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PRODomains"
                                                         name="productsCalledAbout">
                                                     Domains </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Hosting"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROHosting"
                                                         name="productsCalledAbout">
                                                     Hosting </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Email"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROEmail"
                                                         name="productsCalledAbout">
                                                     Email </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Websites"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROWebsites"
                                                         name="productsCalledAbout">
                                                     Websites </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Security"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROSecurity"
                                                         name="productsCalledAbout">
                                                     Security </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="BusinessTools"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROBusinessTools"
                                                         name="productsCalledAbout">
                                                     Business Tools </label></li>
-                                            <li><label><input class="uk-checkbox" type="checkbox" id="Other"
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="PROOther"
                                                         name="productsCalledAbout">
                                                     Other (Leave a comment below) </label></li>
                                         </div>
@@ -260,10 +260,14 @@
                                         <h4>Issue Was Resolved?</h4>
 
                                         <a class="tg-list-item uk-margin-remove-right">
-                                            <input class="tgl tgl-flip" name="resolutionCheckboxes"
-                                                id="resolvedCheckbox" type="checkbox" checked>
-                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                                data-tg-off="Nope" data-tg-on="Yes" for="resolvedCheckbox"></label>
+                                            <div data-attr="PROResolvedCheckbox" class='toggle toggle-on' id='switch'>
+                                                <div class='toggle-text-off'>NO</div>
+                                                <div class='glow-comp'></div>
+                                                <div class='toggle-button'></div>
+                                                <div class='toggle-text-on'>YES</div>
+                                                <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                    id="PROResolvedCheckbox" type="checkbox" hidden="hidden" checked>
+                                            </div>
                                         </a>
 
 
@@ -272,10 +276,14 @@
                                         <h4>Inquiry Out Of Scope?</h4>
 
                                         <a class="tg-list-item uk-margin-remove-right">
-                                            <input class="tgl tgl-flip" name="resolutionCheckboxes" id="scopeCheckbox"
-                                                type="checkbox" />
-                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                                data-tg-off="Nope" data-tg-on="Yes" for="scopeCheckbox"></label>
+                                            <div data-attr="PROScopeCheckbox" class='toggle' id='switch'>
+                                                <div class='toggle-text-off'>NO</div>
+                                                <div class='glow-comp'></div>
+                                                <div class='toggle-button'></div>
+                                                <div class='toggle-text-on'>YES</div>
+                                                <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                    id="PROScopeCheckbox" type="checkbox" hidden="hidden">
+                                            </div>
                                         </a>
 
 
@@ -283,16 +291,20 @@
                                     <div class="uk-flex">
                                         <h4 class="uk-margin-remove-bottom">Escalation Created For Caller?</h4>
 
-                                        <a class="tg-list-item uk-margin-remove-right">
-                                            <input class="tgl tgl-flip" name="resolutionCheckboxes" id="ticketCheckbox"
-                                                type="checkbox" />
-                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
-                                                data-tg-off="Nope" data-tg-on="Yes" for="ticketCheckbox"></label>
+                                        <a class="tg-list-item uk-padding-bottom">
+                                            <div data-attr="PROTicketCheckbox" class='toggle' id='switch'>
+                                                <div class='toggle-text-off'>NO</div>
+                                                <div class='glow-comp'></div>
+                                                <div class='toggle-button'></div>
+                                                <div class='toggle-text-on'>YES</div>
+                                                <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                    id="PROTicketCheckbox" type="checkbox" hidden="hidden">
+                                            </div>
                                         </a>
 
 
-                                        <input class="uk-input uk-width-1-4 uk-input uk-margin-left uk-padding-bottom"
-                                            type="text" id="escalationNumber" placeholder="Ticket #" disabled="true"
+                                        <input class="uk-input uk-width-1-4 uk-input uk-margin-large-left"
+                                            type="text" id="PROEscalationNumber" placeholder="Ticket #" disabled="true"
                                             hidden="true"></input>
                                     </div>
                                 </div>
@@ -303,9 +315,10 @@
 
                         <div id="hiddenComments" hidden="true" uk-margin>
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="commentsBox">Enter Comments On Call Topic(s).</label>
+                                <label class="uk-form-label" for="PROCommentsBox">Enter Comments On Call
+                                    Topic(s).</label>
                                 <div class="uk-form-controls uk-flex">
-                                    <input class="uk-input" type="text" id="commentsBox" disabled="true"
+                                    <input class="uk-input" type="text" id="PROCommentsBox" disabled="true"
                                         placeholder="Comments Here."></input>
                                 </div>
                             </div>
@@ -424,6 +437,132 @@
             <li id="hvc-li-switcher">
                 <!-- Contains the hvc form. -->
                 <h3>Form for HVCs</h3>
+
+                <!-- Grid Section with standard padding added, main input content -->
+                <div class="uk-padding-remove uk-padding-remove-left uk-margin-remove-left">
+
+                    <!-- Form with labels on top of controls -->
+                    <form class="uk-form-stacked">
+                        <!-- form section-->
+
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="HVCbox">Enter The Customer Number Here.</label>
+                            <div class="uk-form-controls uk-flex">
+                                <input class="uk-input" type="text" id="HVCbox"
+                                    placeholder="Enter The Customer Number Here"></input>
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="HVCNameBox">Enter The Caller Name Here.</label>
+                            <div class="uk-form-controls uk-flex">
+                                <input class="uk-input" type="text" id="HVCNameBox" placeholder="Same As Account Name."
+                                    disabled=true></input>
+                                <div class="uk-width-1-4@s uk-margin-left">
+                                    <label><input class="uk-checkbox " type="checkbox" id="HVCNameNA" name="checkboxNA">
+                                        Name
+                                        Different Then Account Name?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="HVCSituationBox">Describe the situation.</label>
+                            <div class="uk-form-controls uk-flex">
+                                <input class="uk-input" type="text" id="HVCSituationBox"
+                                    placeholder="Describe the situation."></input>
+                            </div>
+                        </div>
+
+                        <div class="uk-margin uk-margin-remove-bottom" uk-grid>
+                            <div class="uk-width-1-2 uk-margin-remove-top">
+                                <div class="matched-class">
+                                    <h4>Call Topic(s)</h4>
+                                    <ul class="uk-list uk-list-large uk-list-default">
+                                        <div class="uk-alert-success" uk-alert>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Domains"
+                                                        name="productsCalledAbout">
+                                                    Domains </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Hosting"
+                                                        name="productsCalledAbout">
+                                                    Hosting </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Email"
+                                                        name="productsCalledAbout">
+                                                    Email </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Websites"
+                                                        name="productsCalledAbout">
+                                                    Websites </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Security"
+                                                        name="productsCalledAbout">
+                                                    Security </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="BusinessTools"
+                                                        name="productsCalledAbout">
+                                                    Business Tools </label></li>
+                                            <li><label><input class="uk-checkbox" type="checkbox" id="Other"
+                                                        name="productsCalledAbout">
+                                                    Other (Leave a comment below) </label></li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="uk-margin-remove-top uk-width-1-2" uk-height-match=".matched-class">
+                                <h4>Call Resolution</h4>
+                                <div class="uk-alert-warning" uk-alert>
+                                    <div class="uk-flex">
+                                        <h4>Issue Was Resolved?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                id="HVCresolvedCheckbox" type="checkbox" checked>
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="HVCresolvedCheckbox"></label>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="uk-flex">
+                                        <h4>Inquiry Out Of Scope?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                id="HVCScopeCheckbox" type="checkbox" />
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="HVCScopeCheckbox"></label>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="uk-flex">
+                                        <h4 class="uk-margin-remove-bottom">Escalation Created For Caller?</h4>
+
+                                        <a class="tg-list-item uk-margin-remove-right">
+                                            <input class="tgl tgl-flip" name="resolutionCheckboxes"
+                                                id="HVCTicketCheckbox" type="checkbox" />
+                                            <label class="tgl-btn uk-margin-remove-bottom uk-margin-remove-right"
+                                                data-tg-off="Nope" data-tg-on="Yes" for="HVCTicketCheckbox"></label>
+                                        </a>
+
+
+                                        <input class="uk-input uk-width-1-4 uk-input uk-margin-left uk-padding-bottom"
+                                            type="text" id="HVCEscalationNumber" placeholder="Ticket #" disabled="true"
+                                            hidden="true"></input>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="hiddenComments" hidden="true" uk-margin>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="HVCCommentsBox">Enter Comments On Call
+                                    Topic(s).</label>
+                                <div class="uk-form-controls uk-flex">
+                                    <input class="uk-input" type="text" id="HVCCommentsBox" disabled="true"
+                                        placeholder="Comments Here."></input>
+                                </div>
+                            </div>
+                        </div>
+                </div>
 
 
                 <div class="uk-card uk-card-default uk-card-body uk-background-muted uk-text-center">

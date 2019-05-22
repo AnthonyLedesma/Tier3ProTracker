@@ -14,6 +14,7 @@
     UIkit.container = '.uk-scope';
 
     // API URLS HERE. Do Not Commit.
+   
     // const slackApiUrl = "EXAMPLEAPIHERE";
     // const feedbackApiUrl = "EXAMPLEAPIHERE";
 
@@ -26,29 +27,29 @@
     // declare the form elements to minimize dom calls.
     const H2Title = $('#ChangableFormH2');
     // Input Boxes
-    const customerBox = $('#customerBox');
-    const nameBox = $('#nameBox');
-    const situationBox = $('#situationBox');
-    const nameDifferntCheckbox = $('#nameNA');
-    const escalationNumber = $('#escalationNumber');
+    const PROCustomerBox = $('#PROCustomerBox');
+    const PRONameBox = $('#PRONameBox');
+    const PROSituationBox = $('#PROSituationBox');
+    const nameDifferntCheckbox = $('#PRONameNA');
+    const PROEscalationNumber = $('#PROEscalationNumber');
     // comments area.
-    const commentsBox = $("#commentsBox")
+    const PROCommentsBox = $("#PROCommentsBox")
     const hiddenCommentsDiv = $('#hiddenComments')
 
     // Topics 
-    const Domains = $('#Domains');
-    const Hosting = $('#Hosting');
-    const Email = $('#Email');
-    const Websites = $('#Websites');
-    const Security = $('#Security');
-    const BusinessTools = $('#BusinessTools');
-    const Other = $('#Other');
+    const PRODomains = $('#PRODomains');
+    const PROHosting = $('#PROHosting');
+    const PROEmail = $('#PROEmail');
+    const PROWebsites = $('#PROWebsites');
+    const PROSecurity = $('#PROSecurity');
+    const PROBusinessTools = $('#PROBusinessTools');
+    const PROOther = $('#PROOther');
     const inputNameProductsCalledAbout = $("input[name='productsCalledAbout']");
 
     // Resolutions
-    const resolvedCheckbox = $('#resolvedCheckbox');
-    // const scopeCheckbox = $('#scopeCheckbox');
-    const ticketCheckbox = $('#ticketCheckbox');
+    const PROResolvedCheckbox = $('#PROResolvedCheckbox');
+    // const PROScopeCheckbox = $('#PROScopeCheckbox');
+    const PROTicketCheckbox = $('#PROTicketCheckbox');
     const inputNameResolutionCheckboxes = $("input[name='resolutionCheckboxes']");
 
     // Buttons
@@ -93,11 +94,11 @@
         |--------------------------------------------------------------------------
         *///Check for errors before enabling slack submission
         function areThereFormErrors() {
-            if (DOMPurify.sanitize(customerBox.val().trim()) === "") { return "Enter a valid customer number"; }
-            if (nameDifferntCheckbox.is(':checked') && DOMPurify.sanitize(nameBox.val().trim()) === "") { return "Must enter caller name or alias"; }
-            if (DOMPurify.sanitize(situationBox.val().trim()) === "" || situationBox.val().length <= 7) { return "Describe the situation. At least a sentence or two."; }
-            if (Other.is(':checked') && DOMPurify.sanitize(commentsBox.val().trim()) === "") { return "Enter comments about the topic."; }
-            if (ticketCheckbox.is(':checked') && DOMPurify.sanitize(escalationNumber.val().trim()) === "") { return "Enter ticket number." }
+            if (DOMPurify.sanitize(PROCustomerBox.val().trim()) === "") { return "Enter a valid customer number"; }
+            if (nameDifferntCheckbox.is(':checked') && DOMPurify.sanitize(PRONameBox.val().trim()) === "") { return "Must enter caller name or alias"; }
+            if (DOMPurify.sanitize(PROSituationBox.val().trim()) === "" || PROSituationBox.val().length <= 7) { return "Describe the situation. At least a sentence or two."; }
+            if (PROOther.is(':checked') && DOMPurify.sanitize(PROCommentsBox.val().trim()) === "") { return "Enter comments about the topic."; }
+            if (PROTicketCheckbox.is(':checked') && DOMPurify.sanitize(PROEscalationNumber.val().trim()) === "") { return "Enter ticket number." }
             let elementsCheck = 0;
             if (inputNameProductsCalledAbout.is(':checked')) { elementsCheck++; }
             if (elementsCheck === 0) { return "Must select a topic"; }
@@ -119,10 +120,10 @@
         function resultsFormatter() {
             let results;
             let formValues = {
-                customerNumber: DOMPurify.sanitize(customerBox.val().trim()),
-                callerName: DOMPurify.sanitize(nameBox.val().trim()),
+                customerNumber: DOMPurify.sanitize(PROCustomerBox.val().trim()),
+                callerName: DOMPurify.sanitize(PRONameBox.val().trim()),
                 products: [],
-                situation: DOMPurify.sanitize(situationBox.val().trim()),
+                situation: DOMPurify.sanitize(PROSituationBox.val().trim()),
                 resolved: false,
                 oos: false,
                 escalationCreated: false,
@@ -132,13 +133,13 @@
             //loop through topics checkboxes for values.
             inputNameProductsCalledAbout.each(function (index, item) {
                 if ($(item).is(':checked')) { formValues.products.push(` ${$(item).prop('id')}`); }
-                if ($(item).is(':checked') && $(item).prop('id') === 'Other') { formValues.comments = DOMPurify.sanitize(commentsBox.val().trim()); }
+                if ($(item).is(':checked') && $(item).prop('id') === 'PROOther') { formValues.comments = DOMPurify.sanitize(PROCommentsBox.val().trim()); }
             })
             //Loop through the resolution checkboxes. 
             inputNameResolutionCheckboxes.each(function (index, item) {
-                if ($(item).is(':checked') && $(item).prop('id') === 'resolvedCheckbox') { formValues.resolved = true; }
-                if ($(item).is(':checked') && $(item).prop('id') === 'scopeCheckbox') { formValues.oos = true; }
-                if ($(item).is(':checked') && $(item).prop('id') === 'ticketCheckbox') { formValues.escalationCreated = true; formValues.ticketNumber = DOMPurify.sanitize(escalationNumber.val().trim()); }
+                if ($(item).is(':checked') && $(item).prop('id') === 'PROResolvedCheckbox') { formValues.resolved = true; }
+                if ($(item).is(':checked') && $(item).prop('id') === 'PROScopeCheckbox') { formValues.oos = true; }
+                if ($(item).is(':checked') && $(item).prop('id') === 'PROTicketCheckbox') { formValues.escalationCreated = true; formValues.ticketNumber = DOMPurify.sanitize(PROEscalationNumber.val().trim()); }
             })
 
             // Catching if no name provided.
@@ -178,15 +179,25 @@
     //reset form values and variables
     resetButton.on('click', function () {
         inputNameProductsCalledAbout.each(function (index, item) { $(item).prop('checked', false).prop('disabled', false); })
-        inputNameResolutionCheckboxes.each(function (index, item) { $(item).prop('checked', false).prop('disabled', false); })
+        
+        //Handling setting the toggle buttons.
+        inputNameResolutionCheckboxes.each(function (index, item) { 
+            $(item).prop('checked', false).prop('disabled', false);
+            let elemId = $(item).attr('id');
+            if($(`[data-attr='${elemId}']`).hasClass('toggle-on') && !$(item).prop('checked')) {$(`[data-attr='${elemId}']`).toggleClass('toggle-on');}
+        })
+        PROResolvedCheckbox.prop('checked', true); 
+        if (!$(`[data-attr='PROResolvedCheckbox']`).hasClass('toggle-on')) {$(`[data-attr='PROResolvedCheckbox']`).toggleClass('toggle-on');}
+
+        //Handling the checkboxes
         nameDifferntCheckbox.prop('checked', false);
-        customerBox.val('');
-        nameBox.val('').prop('disabled', true);
-        commentsBox.prop('disabled', true).val('');
-        escalationNumber.prop('disabled', true).val('').attr('hidden', 'hidden');
+        PROCustomerBox.val('');
+        PRONameBox.val('').prop('disabled', true);
+        PROCommentsBox.prop('disabled', true).val('');
+        PROEscalationNumber.prop('disabled', true).val('').attr('hidden', 'hidden');
         hiddenCommentsDiv.attr('hidden', 'hidden');
-        situationBox.val('');
-        resolvedCheckbox.checked = true;
+        PROSituationBox.val('');
+        PROResolvedCheckbox.checked = true;
 
         finalFormValuesToSlack = '';
         SubmitSlack.prop('disabled', true)
@@ -209,49 +220,40 @@
     // This listener will fire if the user chooses to enter a caller name manually.
     nameDifferntCheckbox.on('change', function () {
         if (nameDifferntCheckbox.is(':checked')) {
-            nameBox.prop('disabled', false).prop('placeholder', 'Enter Caller Name.');
+            PRONameBox.prop('disabled', false).prop('placeholder', 'Enter Caller Name.');
         } else if (!nameDifferntCheckbox.is(':checked')) {
-            nameBox.prop('disabled', true).prop('placeholder', 'Same As Account Name.');
-        }
-    })
-
-    //This listener is if a ticket was created. Allows ticket number input.
-    ticketCheckbox.on('change', function () {
-        if (ticketCheckbox.is(':checked')) {
-            escalationNumber.prop('disabled', false).removeAttr('hidden');
-        } else {
-            escalationNumber.prop('disabled', true).val('').attr('hidden', 'hidden');
+            PRONameBox.prop('disabled', true).prop('placeholder', 'Same As Account Name.');
         }
     })
 
     // This listener will fire when user clicks a call topic.
     inputNameProductsCalledAbout.on('change', function () {
-        if ($(this).prop('id') !== 'Other') { Other.prop('disabled', true).prop('checked', false); }
-        if (Other.is(':checked')) {
+        if ($(this).prop('id') !== 'PROOther') { PROOther.prop('disabled', true).prop('checked', false); }
+        if (PROOther.is(':checked')) {
             //Enable/disable comments area.
-            commentsBox.prop('disabled', false).val('');
+            PROCommentsBox.prop('disabled', false).val('');
             hiddenCommentsDiv.removeAttr('hidden');
             //Enable/disable call topics.
-            Domains.prop('disabled', true).prop('checked', false);
-            Hosting.prop('disabled', true).prop('checked', false);
-            Email.prop('disabled', true).prop('checked', false);
-            Websites.prop('disabled', true).prop('checked', false);
-            Security.prop('disabled', true).prop('checked', false);
-            BusinessTools.prop('disabled', true).prop('checked', false);
-        } else if (!Other.is(':checked')) {
+            PRODomains.prop('disabled', true).prop('checked', false);
+            PROHosting.prop('disabled', true).prop('checked', false);
+            PROEmail.prop('disabled', true).prop('checked', false);
+            PROWebsites.prop('disabled', true).prop('checked', false);
+            PROSecurity.prop('disabled', true).prop('checked', false);
+            PROBusinessTools.prop('disabled', true).prop('checked', false);
+        } else if (!PROOther.is(':checked')) {
             //Enable/disable comments area.
-            commentsBox.prop('disabled', true).val('');
+            PROCommentsBox.prop('disabled', true).val('');
             hiddenCommentsDiv.attr('hidden', 'hidden');
             //Enable/disable call topics.
-            Domains.prop('disabled', false);
-            Hosting.prop('disabled', false);
-            Email.prop('disabled', false);
-            Websites.prop('disabled', false);
-            Security.prop('disabled', false);
-            BusinessTools.prop('disabled', false);
+            PRODomains.prop('disabled', false);
+            PROHosting.prop('disabled', false);
+            PROEmail.prop('disabled', false);
+            PROWebsites.prop('disabled', false);
+            PROSecurity.prop('disabled', false);
+            PROBusinessTools.prop('disabled', false);
         }
         if (!inputNameProductsCalledAbout.is(':checked')) {
-            Other.prop('disabled', false);
+            PROOther.prop('disabled', false);
         }
     })
 
@@ -281,8 +283,6 @@
         sendToFeedbackApi(feedbackFormValues);
         proFeedbackSubmit.attr('disabled', 'disabled');
         function sendToFeedbackApi(feedback) {
-            //console.log({ text: feedback.text, tags: feedback.tags, positive: feedback.positive })
-            //console.log(JSON.stringify({ text: feedback.text, tags: feedback.tags, positive: feedbackFormValues.positive }))
             let parsedData = JSON.stringify({ text: feedback.text, tags: feedback.tags, isPositive: feedbackFormValues.positive })
             fetch(feedbackApiUrl, {
                 credentials: 'include',
@@ -311,5 +311,21 @@
         return response;
     }
 
+    //Setting for the CSS toggle buttons
+    $('.toggle').click(function (e) {
+        e.preventDefault(); // The flicker is a codepen thing
+        $(this).toggleClass('toggle-on');
+        let checkboxToggle = $(this).attr('data-attr');
+        if (checkboxToggle === "PROResolvedCheckbox") {$('#' + checkboxToggle).prop("checked", !$('#' + checkboxToggle).prop("checked")); console.log($('#' + checkboxToggle).prop("checked")) }
+        if (checkboxToggle === "PROTicketCheckbox") {$('#' + checkboxToggle).prop("checked", !$('#' + checkboxToggle).prop("checked")); console.log($('#' + checkboxToggle).prop("checked")) }
+        if (checkboxToggle === "PROScopeCheckbox") {$('#' + checkboxToggle).prop("checked", !$('#' + checkboxToggle).prop("checked")); console.log($('#' + checkboxToggle).prop("checked")) }
+        if (PROTicketCheckbox.prop('checked')) {
+            PROEscalationNumber.prop('disabled', false).removeAttr('hidden');
+        } else {
+            PROEscalationNumber.prop('disabled', true).val('').attr('hidden', 'hidden');
+        }
+    })
+    //Also for CSS toggle boxes. Sets a listener to match boxes with css switches
+    
 
 })($, DOMPurify, UIkit);// Dom purify should be used to sanitize all fields. Passing Jquery in with $.
